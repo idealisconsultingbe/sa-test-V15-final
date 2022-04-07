@@ -1,0 +1,37 @@
+id,backend_id/id,name,table,query,field_ids/id,field_ids/column,field_ids/dwh_name,field_ids/dwh_type
+smartanalytics_extractor.reporting_extract_3,smartanalytics_extractor.backend_reporting_1,Cockpit Sales,cockpit_sales,"SELECT sol.id AS sol_id,
+sol.price_subtotal AS sol_price_subtotal,
+sol.price_total AS sol_price_total,
+sol.product_uom_qty AS sol_product_uom_qty,
+uu.name AS uom_name,
+so.id AS so_id,
+so.name AS so_name,
+so.create_date AS so_create_date,
+so.date_order AS so_date_order,
+so.state AS so_state,
+so.invoice_status AS so_invoice_status,
+CASE WHEN rp2.name is NOT NULL THEN rp2.name ELSE rp.name END AS customer,
+rp3.name AS salesperson,
+pt.name AS pt_name
+FROM sale_order_line AS sol
+LEFT JOIN sale_order AS so ON so.id=sol.order_id
+LEFT JOIN res_partner AS rp ON rp.id=so.partner_id
+LEFT JOIN res_partner AS rp2 ON rp2.id=rp.parent_id
+LEFT JOIN res_users AS ru ON so.user_id=ru.id
+LEFT JOIN res_partner AS rp3 ON ru.partner_id=rp3.id
+LEFT JOIN product_product AS pp ON pp.id=sol.product_id
+LEFT JOIN product_template AS pt ON pt.id=pp.product_tmpl_id
+LEFT JOIN uom_uom AS uu ON uu.id=sol.product_uom",smartanalytics_extractor.extract3_field_1,sol_id,sol_id,INT
+,,,,,smartanalytics_extractor.extract3_field_2,sol_price_subtotal,sol_price_subtotal,FLOAT
+,,,,,smartanalytics_extractor.extract3_field_3,sol_price_total,sol_price_total,FLOAT
+,,,,,smartanalytics_extractor.extract3_field_4,sol_product_uom_qty,sol_product_uom_qty,FLOAT
+,,,,,smartanalytics_extractor.extract3_field_5,uom_name,uom_name,STRING
+,,,,,smartanalytics_extractor.extract3_field_6,so_id,so_id,INT
+,,,,,smartanalytics_extractor.extract3_field_7,so_name,so_name,STRING
+,,,,,smartanalytics_extractor.extract3_field_8,so_create_date,so_create_date,DATE
+,,,,,smartanalytics_extractor.extract3_field_9,so_date_order,so_date_order,DATE
+,,,,,smartanalytics_extractor.extract3_field_10,so_state,so_state,STRING
+,,,,,smartanalytics_extractor.extract3_field_11,so_invoice_status,so_invoice_status,STRING
+,,,,,smartanalytics_extractor.extract3_field_12,customer,customer,STRING
+,,,,,smartanalytics_extractor.extract3_field_13,salesperson,salesperson,STRING
+,,,,,smartanalytics_extractor.extract3_field_14,pt_name,pt_name,STRING

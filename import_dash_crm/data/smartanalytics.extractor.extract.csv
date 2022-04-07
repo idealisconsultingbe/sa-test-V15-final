@@ -1,0 +1,36 @@
+id,backend_id/id,name,table,query,field_ids/id,field_ids/column,field_ids/dwh_name,field_ids/dwh_type
+smartanalytics_extractor.reporting_extract_4,smartanalytics_extractor.backend_reporting_1,Cockpit CRM,cockpit_CRM,"SELECT crm.id AS crm_id,
+crm.name AS crm_name,
+crm.create_date AS crm_create_date,
+crm.date_closed AS crm_date_closed,
+crm.date_conversion AS crm_date_conversion,
+crm.date_last_stage_update AS crm_date_last_stage_update,
+crm.expected_revenue AS crm_expected_revenue,
+crm.type AS crm_type,
+crm.active AS crm_active,
+crm_lost.name AS crm_lost_reason,
+crm_stage.name AS crm_stage_name,
+crm.date_deadline AS crm_date_deadline,
+rp.name AS saleperson,
+CASE WHEN rp3.name is NOT NULL THEN rp3.name ELSE rp2.name END AS customer
+FROM crm_lead AS crm
+LEFT JOIN crm_stage AS crm_stage ON crm_stage.id=crm.stage_id
+LEFT JOIN res_users AS ru ON crm.user_id=ru.id
+LEFT JOIN res_partner AS rp ON rp.id=ru.partner_id
+LEFT JOIN crm_lost_reason AS crm_lost ON crm_lost.id=crm.lost_reason
+LEFT JOIN res_partner AS rp2 ON crm.partner_id=rp2.id
+LEFT JOIN res_partner AS rp3 ON rp2.parent_id=rp3.id",smartanalytics_extractor.extract4_field_1,crm_id,crm_id,INT
+,,,,,smartanalytics_extractor.extract4_field_2,crm_name,crm_name,STRING
+,,,,,smartanalytics_extractor.extract4_field_3,crm_create_date,crm_create_date,DATE
+,,,,,smartanalytics_extractor.extract4_field_4,crm_date_closed,crm_date_closed,DATE
+,,,,,smartanalytics_extractor.extract4_field_5,crm_date_conversion,crm_date_conversion,DATE
+,,,,,smartanalytics_extractor.extract4_field_6,crm_date_last_stage_update,crm_date_last_stage_update,DATE
+,,,,,smartanalytics_extractor.extract4_field_7,crm_expected_revenue,crm_expected_revenue,FLOAT
+,,,,,smartanalytics_extractor.extract4_field_8,crm_type,crm_type,STRING
+,,,,,smartanalytics_extractor.extract4_field_9,crm_active,crm_active,BOOL
+,,,,,smartanalytics_extractor.extract4_field_10,crm_lost_reason,crm_lost_reason,STRING
+,,,,,smartanalytics_extractor.extract4_field_11,crm_stage_name,crm_stage_name,STRING
+,,,,,smartanalytics_extractor.extract4_field_12,crm_date_deadline,crm_date_deadline,DATE
+,,,,,smartanalytics_extractor.extract4_field_13,saleperson,saleperson,STRING
+,,,,,smartanalytics_extractor.extract4_field_14,customer,customer,STRING
+,,,,,,,,

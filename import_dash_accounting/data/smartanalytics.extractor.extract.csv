@@ -1,0 +1,74 @@
+id,backend_id/id,name,table,query,field_ids/id,field_ids/column,field_ids/dwh_name,field_ids/dwh_type
+smartanalytics_extractor.reporting_extract_2,smartanalytics_extractor.backend_reporting_1,Cockpit Accounting,cockpit_accounting,"SELECT aml.id AS aml_id,
+CASE WHEN am.name LIKE 'NCV%'  OR am.name LIKE 'SCN%'  THEN aml.price_subtotal*(-1) ELSE aml.price_subtotal END AS aml_price_subtotal,
+aml.price_total AS aml_price_total,
+aml.balance AS aml_balance,
+aml.debit AS aml_debit,
+aml.credit AS aml_credit,
+aml.date AS aml_date,
+aml.date_maturity AS aml_date_maturity,
+aml.name AS aml_name,
+aml.matching_number AS aml_matching_number,
+am.name AS am_name,
+am.invoice_date AS am_invoice_date,
+am.amount_total AS am_amount_total,
+am.amount_total_signed AS am_amount_total_signed,
+am.payment_state AS am_payment_state,
+CASE WHEN am.invoice_date_due is NULL THEN am.invoice_date ELSE am.invoice_date_due END AS am_invoice_date_due,
+am.amount_residual_signed AS am_amount_residual_signed,
+am.invoice_origin AS am_invoice_origin,
+am.ref AS am_ref,
+CASE WHEN rp2.name is NOT NULL THEN rp2.name ELSE rp.name END AS customer,
+CASE WHEN rp2.city is NOT NULL THEN rp2.city ELSE rp.city END AS customer_city,
+aaa.name AS account_analytic_name,
+aa.code AS aa_code_journal,
+aa.internal_type AS aa_internal_type,
+aa.name AS aa_name,
+apt.name AS apt_name,
+aat.name AS aat_name,
+aa.user_type_id AS aa_user_type_id,
+aa_type.name AS aa_type_name,
+aj.name AS aj_name
+FROM account_move_line AS aml
+LEFT JOIN account_move AS am ON aml.move_id=am.id
+LEFT JOIN res_partner AS rp ON rp.id=am.partner_id
+LEFT JOIN res_partner AS rp2 ON rp2.id=rp.parent_id
+LEFT JOIN res_users AS ru ON ru.id=am.invoice_user_id
+LEFT JOIN res_partner AS rp3 ON rp3.id=ru.partner_id
+LEFT JOIN account_analytic_account AS aaa ON aaa.id=aml.analytic_account_id
+LEFT JOIN account_account AS aa ON aml.account_id=aa.id
+LEFT JOIN account_payment_term AS apt ON am.invoice_payment_term_id=apt.id
+LEFT JOIN account_account_account_tag AS aaat ON aml.account_id = aaat.account_account_id
+LEFT JOIN account_account_tag AS aat ON aat.id = aaat.account_account_tag_id
+LEFT JOIN account_account_type AS aa_type ON aa.user_type_id = aa_type.id
+LEFT JOIN account_journal AS aj ON aj.id = aml.journal_id
+WHERE am.state='posted'", smartanalytics_extractor.extract2_field_1,aml_id,aml_id,INT
+,,,,,smartanalytics_extractor.extract2_field_2,aml_price_subtotal,aml_price_subtotal,FLOAT
+,,,,,smartanalytics_extractor.extract2_field_3,aml_price_total,aml_price_total,FLOAT
+,,,,,smartanalytics_extractor.extract2_field_4,aml_balance,aml_balance,FLOAT
+,,,,,smartanalytics_extractor.extract2_field_5,aml_debit,aml_debit,FLOAT
+,,,,,smartanalytics_extractor.extract2_field_6,aml_credit,aml_credit,FLOAT
+,,,,,smartanalytics_extractor.extract2_field_7,aml_date,aml_date,DATE
+,,,,,smartanalytics_extractor.extract2_field_8,aml_date_maturity,aml_date_maturity,DATE
+,,,,,smartanalytics_extractor.extract2_field_9,aml_name,aml_name,STRING
+,,,,,smartanalytics_extractor.extract2_field_10,aml_matching_number,aml_matching_number,STRING
+,,,,,smartanalytics_extractor.extract2_field_11,am_name,am_name,STRING
+,,,,,smartanalytics_extractor.extract2_field_12,am_invoice_date,am_invoice_date,DATE
+,,,,,smartanalytics_extractor.extract2_field_13,am_amount_total,am_amount_total,FLOAT
+,,,,,smartanalytics_extractor.extract2_field_14,am_amount_total_signed,am_amount_total_signed,FLOAT
+,,,,,smartanalytics_extractor.extract2_field_15,am_payment_state,am_payment_state,STRING
+,,,,,smartanalytics_extractor.extract2_field_16,am_invoice_date_due,am_invoice_date_due,DATE
+,,,,,smartanalytics_extractor.extract2_field_17,am_amount_residual_signed,am_amount_residual_signed,FLOAT
+,,,,,smartanalytics_extractor.extract2_field_18,am_invoice_origin,am_invoice_origin,STRING
+,,,,,smartanalytics_extractor.extract2_field_19,am_ref,am_ref,STRING
+,,,,,smartanalytics_extractor.extract2_field_20,customer,customer,STRING
+,,,,,smartanalytics_extractor.extract2_field_21,customer_city,customer_city,STRING
+,,,,,smartanalytics_extractor.extract2_field_22,account_analytic_name,account_analytic_name,STRING
+,,,,,smartanalytics_extractor.extract2_field_23,aa_code_journal,aa_code_journal,STRING
+,,,,,smartanalytics_extractor.extract2_field_24,aa_internal_type,aa_internal_type,STRING
+,,,,,smartanalytics_extractor.extract2_field_25,aa_name,aa_name,STRING
+,,,,,smartanalytics_extractor.extract2_field_26,apt_name,apt_name,STRING
+,,,,,smartanalytics_extractor.extract2_field_28,aat_name,aat_name,STRING
+,,,,,smartanalytics_extractor.extract2_field_29,aa_user_type_id,aa_user_type_id,INT
+,,,,,smartanalytics_extractor.extract2_field_30,aa_type_name,aa_type_name,STRING
+,,,,,smartanalytics_extractor.extract2_field_31,aj_name,aj_name,STRING
