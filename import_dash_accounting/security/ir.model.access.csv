@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_addons/import_dash_accounting_project_addons/import_dash_accounting,project_addons/import_dash_accounting.project_addons/import_dash_accounting,model_project_addons/import_dash_accounting_project_addons/import_dash_accounting,,1,0,0,0

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_addons/import_project_addons/import,project_addons/import.project_addons/import,model_project_addons/import_project_addons/import,,1,0,0,0

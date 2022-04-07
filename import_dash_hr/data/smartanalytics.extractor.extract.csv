@@ -1,0 +1,51 @@
+id,backend_id/id,name,table,query,field_ids/id,field_ids/column,field_ids/dwh_name,field_ids/dwh_type
+smartanalytics_extractor.reporting_extract_1,smartanalytics_extractor.backend_reporting_1,Cockpit HR,cockpit_hr,"SELECT hr_employee.id AS hr_employee_id,
+hr_employee.name AS hr_employee_name,
+hr_employee.create_date AS hr_employee_create_date,
+hr_employee.departure_date AS hr_employee_departure_date,
+hr_employee.birthday AS hr_employee_birthday,
+hr_employee.gender AS hr_employee_gender,
+hr_employee.active AS hr_employee_active,
+hr_employee.km_home_work AS hr_employee_km_home_work,
+hr_employee.marital AS hr_employee_marital,
+hr_employee.children AS hr_employee_children,
+hr_employee.certificate AS hr_employee_certificate,
+hr_job.name AS hr_job_name,
+hr_department.name AS hr_department_name,
+rp.city AS employee_city,
+hr_employee_category.name AS hr_employee_category_name,
+resource_calendar.name AS resource_calendar_name,
+resource_calendar.hours_per_day AS resource_calendar_hours_per_day,
+res_country.name AS nationality,
+hr_employee_manager.name AS manager_name,
+hr_employee_coach.name AS coach_name
+FROM hr_employee
+LEFT JOIN hr_job ON hr_employee.job_id = hr_job.id
+LEFT JOIN hr_department ON hr_department.id=hr_employee.department_id
+LEFT JOIN hr_department AS  hr_department2 ON hr_department2.id=hr_department.parent_id
+LEFT JOIN res_partner AS rp ON hr_employee.address_home_id=rp.id
+LEFT JOIN employee_category_rel AS employee_category_rel  ON hr_employee.id = employee_category_rel.emp_id
+LEFT JOIN hr_employee_category AS hr_employee_category ON hr_employee_category.id=employee_category_rel.category_id
+LEFT JOIN resource_calendar AS resource_calendar ON hr_employee.resource_calendar_id = resource_calendar.id
+LEFT JOIN res_country ON hr_employee.country_id = res_country.id
+LEFT JOIN hr_employee AS hr_employee_manager ON hr_employee.parent_id = hr_employee_manager.id
+LEFT JOIN hr_employee AS hr_employee_coach ON hr_employee.coach_id = hr_employee_coach.id",smartanalytics_extractor.extract1_field_1,hr_employee_id,hr_employee_id,INT
+,,,,,smartanalytics_extractor.extract1_field_2,hr_employee_name,hr_employee_name,STRING
+,,,,,smartanalytics_extractor.extract1_field_3,hr_employee_create_date,hr_employee_create_date,DATE
+,,,,,smartanalytics_extractor.extract1_field_4,hr_employee_departure_date,hr_employee_departure_date,DATE
+,,,,,smartanalytics_extractor.extract1_field_5,hr_employee_birthday,hr_employee_birthday,DATE
+,,,,,smartanalytics_extractor.extract1_field_6,hr_employee_gender,hr_employee_gender,STRING
+,,,,,smartanalytics_extractor.extract1_field_7,hr_employee_active,hr_employee_active,BOOL
+,,,,,smartanalytics_extractor.extract1_field_8,hr_employee_km_home_work,hr_employee_km_home_work,INT
+,,,,,smartanalytics_extractor.extract1_field_9,hr_employee_marital,hr_employee_marital,STRING
+,,,,,smartanalytics_extractor.extract1_field_10,hr_employee_children,hr_employee_children,INT
+,,,,,smartanalytics_extractor.extract1_field_11,hr_employee_certificate,hr_employee_certificate,STRING
+,,,,,smartanalytics_extractor.extract1_field_13,hr_job_name,hr_job_name,STRING
+,,,,,smartanalytics_extractor.extract1_field_14,hr_department_name,hr_department_name,STRING
+,,,,,smartanalytics_extractor.extract1_field_16,employee_city,employee_city,STRING
+,,,,,smartanalytics_extractor.extract1_field_17,hr_employee_category_name,hr_employee_category_name,STRING
+,,,,,smartanalytics_extractor.extract1_field_18,resource_calendar_name,resource_calendar_name,STRING
+,,,,,smartanalytics_extractor.extract1_field_19,resource_calendar_hours_per_day,resource_calendar_hours_per_day,FLOAT
+,,,,,smartanalytics_extractor.extract1_field_20,nationality,nationality,STRING
+,,,,,smartanalytics_extractor.extract1_field_21,manager_name,manager_name,STRING
+,,,,,smartanalytics_extractor.extract1_field_22,coach_name,coach_name,STRING
