@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="smartanalytics_extractor_bigquery_backend_tree" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.bigquery.backend.tree</field>
+        <field name="model">smartanalytics.extractor.backend</field>
+        <field name="inherit_id" ref="smartanalytics_extractor.smartanalytics_extractor_backend_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="bq_project"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="smartanalytics_extractor_bigquery_backend_form" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.bigquery.backend.form</field>
+        <field name="model">smartanalytics.extractor.backend</field>
+        <field name="inherit_id" ref="smartanalytics_extractor.smartanalytics_extractor_backend_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='credentials']" position="inside">
+                <group name="bigquery" string="BigQuery" attrs="{'invisible': [('type', '!=', 'bigquery')]}">
+                    <field name="bq_project"/>
+                    <field name="bq_credentials"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="smartanalytics_extractor_bigquery_extract_tree" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.bigquery.extract.tree</field>
+        <field name="model">smartanalytics.extractor.extract</field>
+        <field name="inherit_id" ref="smartanalytics_extractor.smartanalytics_extractor_extract_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='table']" position="after">
+                <field name="dataset"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="smartanalytics_extractor_bigquery_extract_form" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.bigquery.extract.form</field>
+        <field name="model">smartanalytics.extractor.extract</field>
+        <field name="inherit_id" ref="smartanalytics_extractor.smartanalytics_extractor_extract_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='table']" position="after">
+                <field name="dataset" attrs="{'invisible': [('type', '!=', 'bigquery')]}"/>
+                <field name="dataset_location" attrs="{'invisible': [('type', '!=', 'bigquery')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

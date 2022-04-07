@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="smartanalytics_extractor_mssql_backend_form" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.mssql.backend.form</field>
+        <field name="model">smartanalytics.extractor.backend</field>
+        <field name="inherit_id" ref="smartanalytics_extractor.smartanalytics_extractor_backend_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='credentials']" position="inside">
+                <group name="mssql" string="MsSQL" attrs="{'invisible': [('type', '!=', 'mssql')]}">
+                    <field name="mssql_port"/>
+                    <field name="mssql_server"/>
+                    <field name="mssql_database"/>
+                    <field name="mssql_user"/>
+                    <field name="mssql_password" password="True"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

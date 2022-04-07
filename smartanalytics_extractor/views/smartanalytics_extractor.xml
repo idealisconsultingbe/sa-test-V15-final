@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="smartanalytics_extractor_backend_tree" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.backend.tree</field>
+        <field name="model">smartanalytics.extractor.backend</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="state" widget="label_selection" options="{'classes': {'new': 'default', 'succeed': 'success', 'failed': 'danger'}}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="smartanalytics_extractor_backend_form" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.backend.form</field>
+        <field name="model">smartanalytics.extractor.backend</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="test_connection" type="object" string="Test connection"/>
+                    <button name="action_run_all_extracts" type="object" string="Run all extracts"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <group name="info">
+                    <field name="name"/>
+                    <field name="type"/>
+                </group>
+                <group name="credentials">
+                </group>
+                <group name="extracts">
+                    <field name="extract_ids"/>
+                </group>
+                <group name="code">
+                    <field name="comment_code" widget="ace" options="{'mode': 'python'}"/>
+                </group>
+                <group>
+                    <field name="post_extract_code" widget="ace" options="{'mode': 'python'}"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="smartanalytics_extractor_extract_tree" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.extract.tree</field>
+        <field name="model">smartanalytics.extractor.extract</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="table"/>
+                <field name="state" widget="label_selection" options="{'classes': {'new': 'default', 'succeed': 'success', 'failed': 'danger'}}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="smartanalytics_extractor_extract_form" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.extract.form</field>
+        <field name="model">smartanalytics.extractor.extract</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_run_import" type="object" string="Run import"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <group name="info">
+                    <field name="type" invisible="1"/>
+                    <field name="name"/>
+                    <field name="table"/>
+                </group>
+                <notebook>
+                    <page string="Query">
+                        <group name="query">
+                            <field name="query"/>
+                        </group>
+                        <group name="fields">
+                            <field name="field_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="column"/>
+                                    <field name="dwh_name"/>
+                                    <field name="dwh_type"/>
+                                    <field name="dwh_required"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <p>All fields selected in the query must be declared. Use the same order as the query.</p>
+                    </page>
+                    <!--
+                    <page string="Post-extract code">
+                        <group name="post_extract_code">
+                            <field name="post_extract_code" widget="ace" options="{'mode': 'python'}"/>
+                        </group>
+                    </page>
+                    -->
+                    <page string="Logs">
+                        <group name="log">
+                            <field name="log"/>
+                        </group>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="smartanalytics_extractor_backend_action" model="ir.actions.act_window">
+        <field name="name">Smart Analytics extractor</field>
+        <field name="res_model">smartanalytics.extractor.backend</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new smart analytics backend.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="smartanalytics_extractor_backend_menu"
+              name="Smart Analytics Extractor"
+              action="smartanalytics_extractor_backend_action"
+              groups="smartanalytics_extractor_group_user"
+              web_icon="smartanalytics_extractor,static/description/icon.png"
+              sequence="250"/>
+
+</odoo>

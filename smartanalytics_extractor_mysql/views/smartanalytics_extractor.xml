@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="smartanalytics_extractor_mysql_backend_form" model="ir.ui.view">
+        <field name="name">smartanalytics.extractor.mysql.backend.form</field>
+        <field name="model">smartanalytics.extractor.backend</field>
+        <field name="inherit_id" ref="smartanalytics_extractor.smartanalytics_extractor_backend_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='credentials']" position="inside">
+                <group name="mysql" string="MySQL" attrs="{'invisible': [('type', '!=', 'mysql')]}">
+                    <field name="mysql_host"/>
+                    <field name="mysql_port"/>
+                    <field name="mysql_user"/>
+                    <field name="mysql_password" password="True"/>
+                    <field name="mysql_database"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
